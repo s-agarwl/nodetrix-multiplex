@@ -593,7 +593,10 @@ def similarity():
 	# DATA_DIR = "/home/shivam/Desktop/Revisiting/server_services/pythondata_cora"
 	# DATA_DIR = "/home/shivam/Desktop/Revisiting/server_services/pythondata"
 	# DATA_DIR = "static/server_services/pythondata"
-	DATA_DIR = "static/server_services/pythondata_infovis2015"
+	
+	# Use a relative path that works in both local and Vercel environments
+	DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static/server_services/pythondata_infovis2015")
+	# DATA_DIR = "static/server_services/pythondata_infovis2015"
 	# DATA_DIR = "static/server_services/pythondata_scivis2015"
 	# DATA_DIR = "/home/shivam/Desktop/Revisiting/server_services/pythondata_usf"
 	# DATA_DIR = "/home/shivam/Desktop/Revisiting/server_services/pythondata_wordnet"

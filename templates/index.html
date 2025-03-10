@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+    <script type="text/javascript">
+
+    if (screen.width<=1024) //if screen is 8 bit or less
+     alert("Best viewed in 1920 x 1200 resolution."); //simple lime background for 8 bit screens
+    // else
+    //  alert("Best viewed in Full HD display."); //fancy green background for modern screens.
+
+    </script>
+
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author"><!-- Bootstrap Core CSS -->
+    <!-- <link href="static/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link  href="static/css/bootstrap.css" rel="stylesheet">
+ <!--    <link href=
+    "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
+    rel="stylesheet"> -->
+    <link href="static/css/BootSideMenu.css" rel="stylesheet"><!-- Custom CSS -->
+    <link href="static/css/simple-sidebar.css" rel="stylesheet">
+
+    <title>NodeTrix-Multiplex</title>
+    <meta charset="utf-8">
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/jquery.blockUI.js"></script>
+
+    <script src="static/js/jquery-ui.js"></script>
+
+    <!-- <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
+    <script charset="utf-8" src="static/d3/d3.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/BootSideMenu.js"></script>
+    <script src="static/js/jLouvain.js" type="text/javascript"></script>
+    <script src="static/js/math.js" type="text/javascript"></script>
+    <script src="static/js/helper.js" type="text/javascript"></script>
+    <script src="static/js/augmentedNodeTrix.js" type="text/javascript"></script>
+    <script src="static/js/matrixVisualization1.js" type="text/javascript"></script>
+    <script src="static/js/pablo.js"></script>
+    <script src="static/js/saveSvgAsPng.js"></script>
+
+   <!--  <script src="static/js/jquery.multiselect.js"></script>
+    <link  href="static/css/jquery.multiselect.css" rel="stylesheet" /> -->
+
+
+
+
+    <script src="static/lib/science.v1.js"></script>
+    <script src="static/lib/tiny-queue.js"></script>
+    <script src="static/js/reorder.v1.js"></script>
+    <!-- <script src="static/js/matrix.js"></script> -->
+
+    <script src="static/js/render-queue.js"></script>
+
+    <style> 
+  @import url("static/css/augmentedNodeTrix.css");
+    </style>
+    <!-- <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine"> -->
+    <link href='http://fonts.googleapis.com/css?family=PT+Serif' rel=
+    'stylesheet' type='text/css'>
+    <link href="static/css/jquery-ui.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
+
+
+
+    <link href="static/css/bootstrap-tour.min.css" rel="stylesheet">
+    <!-- <link href="static/css/bootstrap-tour-standalone.min.css" rel="stylesheet"> -->
+    <script src="static/js/bootstrap-tour.min.js"></script>
+    <script src="static/js/tour.js"></script>
+
+    
+
+
+
+
+    <script type="text/javascript">
+    function populateLeftSidebar()
+    {
+        $('#test').empty();
+            $('#test').append(leftSidebar);
+            
+            var leftSidebarTemplate = $('#hidden-lefttemplate').html();
+            $('#test').append(leftSidebarTemplate);
+    }
+ $(document).ready(function(){
+      // $('#test').BootSideMenu({side:"left", autoClose:true});
+      $('#test2').BootSideMenu({side:"right" , autoClose:true});
+    });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+
+      window.originalSidebar = $('#test2').html();
+      $("#test2.container.sidebar.sidebar-right").find(".toggler").hide();
+      window.leftSidebar = $('#test').html();
+
+       
+
+        tour();
+
+        // Initialize the tour
+        
+
+        // Start the tour
+        
+    $("#btn").click(function(){
+        // console.log(localStorage.getItem("tour_end"));
+        if (localStorage.getItem("tour_end") == null) 
+        {
+            tour.init();
+                tour.start(true);
+            tour.goTo(0);
+
+        }
+        else{
+            tour.goTo(0);
+              tour.restart();
+        }
+    })
+
+  });
+    </script>
+  
+
+
+<style>
+
+.overlay {
+  fill: none;
+  /*pointer-events: all;*/
+}
+
+</style>
+
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+
+  <!-- <ul class="nav navbar-nav ">
+    <li> <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span id="arrow">&#8592;</span> 
+                                    Context Operations</a></li></ul> -->
+    <ul class="nav navbar-nav " >
+    <li > <a href="#menu-toggle"  id="menu-toggle" ><span id="arrow">&#8592;</span> 
+                                    Context Operations</a></li></ul>
+      <div class="container" style='margin-right: 10px;'>
+        <div class="navbar-header" >
+
+          <a class="navbar-brand"   style='text-align:center;font-size:25px;' >NodeTrix-Multiplex</a>
+         <!--  <p class="navbar-brand" style='text-align:center;font-size:25px;font-family:"PT Serif",Helvetica;'>
+                        NodeTrix-Multiplex</p> -->
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="help" target='_blank' >Help</a></li>
+                <li><a id="btn" href='#'>Interactive Tutorial</a></li>
+                <!-- <li><a href="">About</a></li> -->
+                <!-- <li class="active"><a href="">Fixed top <span class="sr-only">(current)</span></a></li> -->
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <br/><br/><br/>
+<div id="container"><a  id = "json_download"></a></div>
+<div id="container"><a  id = "memGraph"></a></div>
+    <!--Test 
+<!-- <canvas id="canvas"></canvas> -->
+
+    <div id="test">
+        
+    </div>
+    <!--/Test -->
+    <!--Test 2 -->
+
+
+    <div id="test2">
+    </div>
+    <!--/Test 2-->
+    <!-- Another Sidebar -->
+    <!-- End of another sidebar -->
+
+
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <!-- Context Sidebar -->
+
+        <div id="sidebar-wrapper">
+            <div>
+            <div id="matrixCombination">
+                <h2 id="alphaHeading">Matrix Combination</h2>
+
+
+                <div id="sliderCombination">
+                </div>
+
+
+                <h3 id='adjText'>Similarity</h3>
+
+
+                <h3 id='dissText'>Adjacency</h3>
+                <br>
+            </div>
+
+                <h2>Color Scheme</h2>
+                <select id="color" name="color">
+                    <optgroup label="Color Scheme">
+                        <option value="BW">
+                            Black-White
+                        </option>
+
+                        <option value="OG">
+                            Orange-Green
+                        </option>
+
+                        <option value="BY">
+                            Black-Yellow
+                        </option>
+
+                        <option value="PO">
+                            Purple-Orange
+                        </option>
+
+                        <option value="GR">
+                            Green-Red
+                        </option>
+
+                        <option value="BR">
+                            Blue-Red
+                        </option>
+
+                        <option value="OW">
+                            Orange-White
+                        </option>
+
+                        <option value="GW">
+                            Green-White
+                        </option>
+
+                        <option value="RW">
+                            Red-White
+                        </option>
+
+                        <option value="BlueW">
+                            Blue-White
+                        </option>
+
+                        <option value="CBS1">
+                            Color-Blind Safe 1
+                        </option>
+
+                        <option value="CBS2">
+                            Color-Blind Safe 2
+                        </option>
+
+                        <option value="CBS3">
+                            Color-Blind Safe 3
+                        </option>
+
+                        <option value="HM">
+                            HeightMap
+                        </option>
+                    </optgroup>
+                </select><br>
+
+
+                <h2>Matrix Operations</h2>
+                <select id="matrix" name="matrix">
+                    <optgroup label="Operations">
+                        <option selected value="Self">
+                            Self
+                        </option>
+
+                        <option value="VATed">
+                            VAT Seriation
+                        </option>
+                        <option value="Leaf">
+                            Optimal Leaf Order Seriation
+                        </option> 
+                        <option value="CrossingReduction">by Crossing Reduction Seriation</option> 
+        <option value="BandwidthReduction">by Bandwidth Reduction Seriation</option> 
+                        <option value="Lap">
+                            Laplacian
+                        </option>
+
+                        <option value="Mod">
+                            Modularity
+                        </option>
+
+                        <option value="Pow2">
+                            Power - 2
+                        </option>
+
+                        <option value="Fil">
+                            Filtering
+                        </option><!-- 
+            <option value="Diss" selected>Dissimilarity</option>
+            <option value="Adj">Adjacency</option>  
+            <option value="AdjUnweighted">Adjacency Unweighted</option>  
+            <option value="AdjPow2">Adj-Multipath (Length 1 or 2)</option>  
+            <option value="AdjWithDiss">Adjacency filtered Dissimilarity</option>  
+            <option value="DissAdj">Dissimilarity + Adjacency</option>
+            <option value="Lap">Laplacian</option>  
+            <option value="NormLap">Normalized Laplacian</option>   -->
+                    </optgroup>
+                </select><br>
+                 <!-- <label>
+                    <input id="layer3edge" type="checkbox" name="checkbox"> Show Layer 3 Edges
+                    </label> -->
+                <!--
+        <h2> Matrix Seriation </h2>
+        <select name="matrixSeriation" id="matrixSeriation">
+          <optgroup label="Matrix Seriation Type">
+            <option value="None" selected>None</option>  
+            <option value="VATed">VAT</option>    
+            <option value="Louven">Louven - Community</option>
+             <option value="Elypt">Elyptical</option>
+          </optgroup>
+        </select>
+
+        <br/> -->
+                 <!-- <h2> Glyph Type </h2>
+        <select name="glyph" id="glyph">
+          <optgroup label="Glyph Type">
+            <option value="rect" selected>Rect</option>  
+            <option value="circle">Circle</option>      
+          </optgroup>
+        </select> -->
+            </div>
+            <br>
+
+
+            <div id="sliderFilter" style="display:none">
+                <h2 id="sliderFilterMatrixHeading">Matrix Filtering</h2>
+
+
+                <div id="sliderFilterMatrix">
+                </div>
+            </div>
+            <br>
+            <br>
+            <!-- <form>
+        <label>
+          <input id="checkbox-1" type="checkbox" name="checkbox"> LAB Color Space
+        </label>
+      </form> 
+
+      <br/> -->
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+
+
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- <h1><u>Augmented Nodetrix</u></h1>                                                 -->
+                        <!-- <a class="btn btn-default" href="#menu-toggle" id=
+                        "menu-toggle"><span id="arrow">&#8592;</span>
+                        Context Operations</a>
+
+                        <p style=
+                        'text-align:center;font-size:25px;font-family:"PT Serif",Helvetica;'>
+                        NodeTrix-Multiplex</p> -->
+
+
+                        <div id='chartArea'>
+                        </div>
+                        <hr />
+                        <p id='stagingAreaText' style=
+                        'text-align:center;font-size:25px;font-family:"PT Serif",Helvetica;'>
+                        Staging Area</p>
+                        <svg id = "collectedview" width="100%" height="800px">
+                        </svg>
+                        <!-- <hr /> -->
+                        <!-- <p style=
+                        'text-align:center;font-size:25px;font-family:"PT Serif",Helvetica;'>
+                        Graph View</p> -->
+                        <!-- <svg id = "collectedview" width="100%" height="800px"> -->
+                        <div id='chartArea1'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- Menu Toggle Script -->
+    <script>
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    visualization.leftSidebarClicked();
+    $("#wrapper").toggleClass("toggled");
+    });
+
+
+    $("#chartArea").click(function (evt) {
+    evt.stopPropagation();
+        // console.log($("#test2").attr("data-status"));
+        visualization.deFocusNode();
+
+        // alert($(this).attr("id"));
+      });
+
+
+
+
+
+
+    // Visualization Code
+    window.visualization = null;
+
+    var clusteringOrder = [21, 23, 25, 26, 33, 34, 35 , 36, 40, 50, 53, 57, 59, 60, 61, 68, 79, 82, 83, 87, 100, 102, 104, 128, 130, 133, 136, 142, 143, 149 ];
+
+    //d3.json("./json/cites.json", function(json) {
+
+    //console.log(json.links)
+
+    // var x = new Array(500);
+
+    // for (var i = 0; i < 500; i++) 
+    // {
+    //   x[i] = new Array(500);
+    // }
+
+    // for(var i = 0 ; i < x.length ; ++i)
+    //   for(var j = 0 ; j < x.length ; ++j)
+    //       x[i][j] = 0;
+
+    // var citation = new Array(500);
+
+    // var mean=0, count =0;
+
+    // for( var i = 0 ; i < json.nodes.length; ++i )
+    // {
+    //   citation[i] = json.nodes[i].nodeSize;
+
+    //   if( citation[i] )
+    //   {
+    //       mean += citation[i]
+    //       count ++
+    //   }
+    // }
+
+    // console.log( "Mean is " + mean/count + " among numbers " + count)
+
+    // mean  = Math.floor(mean/count)
+    // console.log(mean)
+
+    // for( var i = 0 ; i < json.nodes.length; ++i )
+    // {
+    //   citation[i] = json.nodes[i].nodeSize;
+
+    //   if( !citation[i] )
+    //   {
+    //       citation[i] = mean;
+    //   }
+    // }
+
+    // var min = 10000, max = -1;
+
+    // for( var i = 0 ; i < json.nodes.length; ++i )
+    // {
+    //    if (citation[i] > max )
+    //     max = citation[i]
+    //    if( citation[i] < min)
+    //     min = citation[i]
+    // }
+
+    // for( var i = 0 ; i < json.nodes.length; ++i )
+    // {
+    //   citation[i] -= min;
+    // }
+
+    // for( var i = 0 ; i < json.nodes.length; ++i )
+    // {
+    //   citation[i] /= max;
+    // }
+
+    // console.log(citation)
+
+
+
+
+    //     for(var i = 0 ; i < x.length ; ++i)
+    //     {
+    //       for(var j = 0 ; j < x.length ; ++j)
+    //       {
+    //           if( j == x.length-1 )
+    //             document.write( Math.abs((citation[i]-citation[j])).toFixed(4)) 
+    //           else
+    //             document.write(Math.abs((citation[i]-citation[j]).toFixed(4))+", ") 
+    //       }
+
+    //           document.write("<\/br>") 
+
+    //     }
+
+    //     //console.log(x)
+
+
+
+    // });
+
+    $(function() { $( "#sliderCombination" ).slider({
+
+    value: 1.0,
+    min: 0,
+    max: 1,
+    step: .05,
+    slide: function( event, ui ) 
+    {
+      $("#sliderFilterMatrix").slider("option","value",0);
+      var value = $("#sliderCombination").slider("option","value");
+      $("#sliderCombination").find(".ui-slider-handle").text(value);
+
+              // alpha =  ui.value
+              // // updateCombinedMatrix();
+
+              // if( 'DissAdj' == $( "#matrix" ).val() )
+              // {
+              //     visualization.updateData(dissAdjMatrix);  
+              //     $('#sidebar-matrixSeriation').val('None').selectmenu( "refresh" );                  
+              // }          
+            },
+
+            stop: function() {
+              var value = $("#sliderCombination").slider("option","value");        
+              $("#sliderCombination").find(".ui-slider-handle").text(value);
+              visualization.updateCombinedMatrix(value);
+            }
+
+          }); });
+
+     $("#matrixCombination").hide();
+
+    $(function() { $( "#sliderFilterMatrix" ).slider({
+
+    value: 0,
+    min: 0,
+    max: 1,
+    step: .1,
+    slide: function( event, ui ) 
+    {
+      var value = $("#sliderFilterMatrix").slider("option","value");
+      $("#sliderFilterMatrix").find(".ui-slider-handle").text(value);
+
+          // visualization.updateValueFiltering(value)           
+          
+        },
+
+        change: function() {
+          var value = $("#sliderFilterMatrix").slider("option","value");        
+          $("#sliderFilterMatrix").find(".ui-slider-handle").text(value);
+          visualization.updateValueFiltering(value);
+        }
+
+      }); });
+
+    $(document).ready(function(){
+
+    $('.ui-slider-handle').width(40).height(15)
+    var value = $("#sliderCombination").slider("option","value");        
+        // $("#sliderCombination").find(".ui-slider-handle").text('\u03B1 = ' + value);  
+        $("#sliderCombination").find(".ui-slider-handle").text(value);  
+
+        var value = $("#sliderFilterMatrix").slider("option","value");        
+        // $("#sliderFilterMatrix").find(".ui-slider-handle").text('\u03B1 = ' + value);  
+        $("#sliderFilterMatrix").find(".ui-slider-handle").text(value);
+
+
+        $('#checkbox-1').change(function() 
+        {
+          $('#textbox1').val($(this).is(':checked'));
+        });
+
+        $('#checkbox-1').mousedown(function() 
+        {
+          if (!$(this).is(':checked')) 
+          {
+            visualization.updateColorSpace('Lab')
+          }
+
+          else
+          {
+            visualization.updateColorSpace('')
+          }
+        });
+
+      });
+
+    // Parse and load the diss/adj data sets.
+
+    var dissMatrix, adjMatrix, adjMatrixUnweighted, adjMatrixPow2, dissAdjMatrix, adjWithDissimilarity, laplacianMatrix, normLaplacianMatrix, alpha= .5, DissimilarityMatrices, AdjacencyMatrices, edgeList, edgeList_layer3,  eigenMatricesData;
+
+    // var adjacencyMatrices;
+
+    // var datasetName = 'test/';
+    // var datasetName = 'test2/';
+    //var datasetName = 'infovis_test_all/';
+    // var datasetName = 'adjnoun/';
+    // var datasetName = 'bible/';
+    // var datasetName = 'euroroad/';
+    //var datasetName = 'wordnet/';
+    // var datasetName = 'cora_nodetrix/';
+    // var datasetName = 'infovis/';
+    var datasetName = 'infovis2015/';
+    // var datasetName = 'infovis2015_morecomm/';
+    // var datasetName = 'scivis2015/';
+
+
+    // var datasetName = 'morenodestest/';
+    // var datasetName = 'infovis_community_size_constraint/';
+    // var datasetName = 'infovis_all/';
+    // var datasetName = 'infovis_1cc/';
+    // var datasetName = 'a/';
+    // var datasetName = 'freeassoc/';    //POS data
+     // var datasetName = 'cora_classification/';
+    $.blockUI({ message: '<h1>Loading the datasets..<\/h1>' });
+
+    // d3.text('./dataSets/IIITB_Prof_Data_20/Prof_Augmented.csv', function(text) 
+    // d3.text('./dataSets/Synthetic/Synthetic_Dissimilarity', function(text) 
+    d3.text('static/dataSets/'+datasetName+'DissimilarityMatrices.csv', function(text) 
+    // d3.text('./dataSets/Nodetrix/Infovis2004Diss.csv', function(text) 
+    //d3.text('./dataSets/IRIS/VAT_Euc', function(text) 
+    {
+        var data = d3.csv.parseRows(text).map(function(row) 
+                    {
+                        return row.map(function(value) { return value; });
+                    });
+
+
+          // dissMatrix = data; 
+          MatrixData = data;
+          dissimilarityMatrices = data;
+          var adjacencyMatrices =[];
+          d3.text('static/dataSets/'+datasetName+'AdjacencyMatrices.csv', function(text)
+          {
+            var data = d3.csv.parseRows(text).map(function(row) 
+            {
+              return row.map(function(value) { return value; });
+            });
+            adjacencyMatrices = data;
+
+            d3.text('static/dataSets/'+datasetName+'EigenMatrix.csv', function(text)
+            {
+                var data = d3.csv.parseRows(text).map(function(row) 
+                {
+                  return row.map(function(value) { return value; });
+                });
+                eigenMatricesData = data;
+                    d3.text('static/dataSets/'+datasetName+'Edges.csv', function(text) 
+                          //d3.text('./dataSets/Synthetic/Synthetic_Adjacency', function(text)         
+                          //d3.text('./dataSets/IIITB_Prof_Data_20/ProfAdjacency.csv', function(text) 
+                          //d3.text('./dataSets/IRIS/VAT_Euc', function(text) 
+                          {
+                            var data = d3.csv.parseRows(text).map(function(row) 
+                            {
+                              return row.map(function(value) { return +value; });
+                            });
+                              // console.log(data);
+                               d3.text('static/dataSets/'+datasetName+'layer3edges.csv', function(text1) 
+                              {
+                                var data1 = d3.csv.parseRows(text1).map(function(row1) 
+                                {
+                                  return row1.map(function(value) { return +value; });
+                                });
+                                  // console.log(data);
+
+                                  edgeList_layer3 = [];
+                                  for (var i=0;i<data1.length; i++)
+                                  {
+                                    temp = {src: parseInt(data1[i][0]), dst: parseInt(data1[i][1]), cnt:parseFloat(data1[i][2])};
+                                    edgeList_layer3.push(temp);
+                                  }
+                                  edgeList = [];
+                              for (var i=0;i<data.length; i++)
+                              {
+                                temp = {src: parseInt(data[i][0]), dst: parseInt(data[i][1]), cnt:parseInt(data[i][2])};
+                                edgeList.push(temp);
+                              }
+                              entireDataset = {DissimilarityMatrices: dissimilarityMatrices, AdjacencyMatrices: adjacencyMatrices, EigenMatrices: eigenMatricesData, EdgeList: edgeList};
+                             
+                              $.unblockUI();
+
+                              visualization = AugmentedNodeTrix('chartArea')
+                              .width( $('.col-lg-12').width() + $('#sidebar-wrapper').width() )
+                              .height(1500)
+                              .loadClusteringInfo(clusteringOrder)
+                                                        // .loadMatrix(MatrixData)
+                                                        .loadMatrix(entireDataset)
+                                                        .glyphType('rect')
+                                                        .renderAugmentedNodetrix('Dissimilarity')
+
+                                                        // Hide Side bar after data has loaded
+                                                        $("#wrapper").toggleClass("toggled");
+
+                            })
+                              });
+
+
+                              
+              });
+
+          });
+
+          
+      // console.log("Adjacency matrices",adjacencyMatrices);
+
+      /*
+       *  Do not apply normalization on the complete Adj/Diss matrices. Apply only on the indivisual ones. 
+       */
+
+      // matrixSize = dissMatrix.length;
+
+      // // Allocate memory for differnt matrices
+      // adjMatrixPow2 = [], adjWithDissimilarity = [], laplacianMatrix=[], normLaplacianMatrix=[], adjMatrixUnweighted=[];
+      // for (var i = 0; i < matrixSize; i++) 
+      // {
+      //     adjMatrixPow2[i] = [];      
+      //     adjWithDissimilarity[i] = [];
+      //     laplacianMatrix[i] = [];
+      //     normLaplacianMatrix[i] = [];
+      //     adjMatrixUnweighted[i] = [];
+      // }
+
+        
+    });
+
+    $( "#color" ).selectmenu();
+    $( "#matrix" ).selectmenu();
+    // $( "#matrixSeriation" ).selectmenu();
+    $( "#glyph" ).selectmenu();
+
+    $( "#matrix" ).selectmenu({
+    select: function( event, ui ) 
+    {
+      _matrixSeriationType = ui.item.value;    
+
+      if( ui.item.value == "Self" )
+      {
+        // visualization.updateData(dissMatrix)
+        refreshSidebar(contextSidebarRefreshIdArray);
+        visualization.restoreOriginalMatrix();
+      }
+
+      else if( ui.item.value == 'VATed' )
+      {
+        refreshSidebar(contextSidebarRefreshIdArray);
+        visualization.applyVAT();
+      }
+      else if( ui.item.value == 'Leaf' )
+      {
+        refreshSidebar(contextSidebarRefreshIdArray);
+        visualization.applyLeaf();
+      }
+       else if (ui.item.value == 'CrossingReduction')
+    {
+        refreshSidebar(
+            focusSidebarRefreshIdArray);
+        visualization.applyCrossingReduction();
+    }
+    else if (ui.item.value == 'BandwidthReduction')
+    {
+        refreshSidebar(
+            focusSidebarRefreshIdArray);
+        visualization.applyBandwidthReduction();
+    }
+
+      else if( ui.item.value == "Lap" )
+      {
+        refreshSidebar(contextSidebarRefreshIdArray);
+        visualization.applyLaplacian();
+      }
+
+      else if( ui.item.value == "Mod" )
+      {
+        refreshSidebar(contextSidebarRefreshIdArray);
+        visualization.applyModularity();
+      }
+
+      else if( ui.item.value == "Pow2" )
+      {
+        refreshSidebar(contextSidebarRefreshIdArray);
+        visualization.applyPower2();
+      }
+
+      else if( ui.item.value == "Fil" )
+      {
+        $("#sliderFilter").attr("style","display:block");
+                 
+      }
+
+      // else if( ui.item.value == "AdjWithDiss" )
+      //   visualization.updateData(adjWithDissimilarity);          
+
+      // else if( ui.item.value == "DissAdj" )
+      //   visualization.updateData(dissAdjMatrix);            
+
+      
+      //       // visualization.updateData();
+
+      //       else if( ui.item.value == "NormLap" )
+      //         visualization.updateData(normLaplacianMatrix);                        
+
+            $('#matrixSeriation').val('None').selectmenu( "refresh" ); 
+
+          }
+        });
+
+    // $( "#matrixSeriation" ).selectmenu({
+    //   change: function( event, ui ) 
+    //   {   
+    //     _matrix = ui.item.value;
+
+    //     if( ui.item.value == 'VATed' )
+    //       visualization.applyVAT();
+    //     else if( ui.item.value == 'Elypt' )
+    //       visualization.applyElyptical();  
+    //     else if( ui.item.value == 'Louven' )
+    //       visualization.applyCommunityDetectionLouven()  
+    //     else if ( ui.item.value == 'None' )  
+    //       visualization.applyNoMatrixSeriation();
+    //   }
+    // });
+
+    $( "#color" ).selectmenu({
+    select: function( event, ui ) 
+    {       
+      if( ui.item.value == "OG" )
+       visualization.chartColoring("orange","green")
+     else if( ui.item.value == "BY" )
+       visualization.chartColoring("black","yellow")
+     else if( ui.item.value == "PO" )
+       visualization.chartColoring("purple","orange")
+     else if( ui.item.value == "GR" )
+       visualization.chartColoring("green","red")
+     else if( ui.item.value == "BR" )
+       visualization.chartColoring("blue","red")
+     else if( ui.item.value == "RGB" )
+       visualization.chartColoring("RGB","RGB")
+     else if( ui.item.value == "CBS1" )
+       visualization.chartColoring("#f03b20","#ffeda0")
+     else if( ui.item.value == "CBS2" )
+       visualization.chartColoring("#7B3294","#008837")
+     else if( ui.item.value == "CBS3" )
+       visualization.chartColoring("#1f78b4","#b2df8a")  
+     else if( ui.item.value == "BW" )
+       visualization.chartColoring("black","white")
+     else if( ui.item.value == "OW" )
+       visualization.chartColoring("orange","white")
+     else if( ui.item.value == "GW" )
+       visualization.chartColoring("green","white")
+     else if( ui.item.value == "RW" )
+       visualization.chartColoring("red","white")
+     else if( ui.item.value == "BlueW" )
+       visualization.chartColoring("blue","white")
+     else if( ui.item.value == "HM" )
+       visualization.chartColoring("HM","HM")         
+     else
+       visualization.chartColoring("black","white")
+    }
+    });
+
+    $( "#glyph" ).selectmenu({
+    change: function( event, ui ) 
+    {
+      visualization
+      .glyphType(ui.item.value)            
+    }
+    });
+
+    // function updateCombinedMatrix()
+    // {
+    //     for (var i = 0; i < dissMatrix.length; i++)   
+    //         for (var j = 0; j < dissMatrix.length; j++)   
+    //                 dissAdjMatrix[i][j] =  (dissMatrix[i][j] * alpha)+( (1-alpha) * adjMatrix[i][j] );
+
+    //           initialPos = 0;
+    //           //Modify individual adjacency matrices as per the VATs requirements
+    //           for( var k = 0; k < clusteringOrder.length ; ++k )
+    //           {        
+    //                 var matrixSize =  clusteringOrder[k] - initialPos, max = -1000, min = 100000;                
+
+    //                 for (var i = 0; i < matrixSize; i++)   
+    //                 {
+    //                     for (var j = 0; j < matrixSize; j++)   
+    //                     {
+    //                         dissAdjMatrix[i+initialPos][j+initialPos] > max ? max = dissAdjMatrix[i+initialPos][j+initialPos] : {};
+
+    //                         dissAdjMatrix[i+initialPos][j+initialPos] < min ? min = dissAdjMatrix[i+initialPos][j+initialPos] : {};
+    //                     }
+    //                 }
+
+    //                 // Normalize betwen 0 and 1
+    //                 for (var i = 0; i < matrixSize; i++)   
+    //                 {
+    //                     for (var j = 0; j < matrixSize; j++)   
+    //                     {
+    //                         if( min == max)
+    //                           dissAdjMatrix[i+initialPos][j+initialPos] = 0;  
+    //                         else
+    //                           dissAdjMatrix[i+initialPos][j+initialPos] = i == j ? 0 : (dissAdjMatrix[i+initialPos][j+initialPos]-min) / (max-min) ;                                                
+    //                     }
+    //                 }
+
+    //                 initialPos = clusteringOrder[k];
+    //           }
+    // }
+
+
+    </script> <!-- Templates for Sidebars -->
+     <script>
+window.focusSidebarRefreshIdArray = ["clusterOptions", "sidebar-filter"];
+    window.contextSidebarRefreshIdArray = ["sliderFilter"];
+
+    function refreshSidebar(toRefreshIdsArray)
+    {
+    // console.log("refreshing");
+    for (x in toRefreshIdsArray)
+    {
+    // console.log(x, "#"+x);
+    $("#"+ toRefreshIdsArray[x]).attr("style","display:none;");
+    }
+    }
+    </script> 
+
+    <script id="hidden-lefttemplate" type="text/x-custom-template">
+    <!-- <div id="sidebar-wrapper"> -->
+            <div>
+            <div id="matrixCombination">
+                <h2 id="alphaHeading">Matrix Combination</h2>
+
+
+                <div id="sliderCombination">
+                </div>
+
+
+                <h3 id='adjText'>Similarity</h3>
+
+
+                <h3 id='dissText'>Adjacency</h3>
+                <br>
+            </div>
+
+                <h2>Color Scheme</h2>
+                <select id="color" name="color">
+                    <optgroup label="Color Scheme">
+                        <option value="BW">
+                            Black-White
+                        </option>
+
+                        <option value="OG">
+                            Orange-Green
+                        </option>
+
+                        <option value="BY">
+                            Black-Yellow
+                        </option>
+
+                        <option value="PO">
+                            Purple-Orange
+                        </option>
+
+                        <option value="GR">
+                            Green-Red
+                        </option>
+
+                        <option value="BR">
+                            Blue-Red
+                        </option>
+
+                        <option value="OW">
+                            Orange-White
+                        </option>
+
+                        <option value="GW">
+                            Green-White
+                        </option>
+
+                        <option value="RW">
+                            Red-White
+                        </option>
+
+                        <option value="BlueW">
+                            Blue-White
+                        </option>
+
+                        <option value="CBS1">
+                            Color-Blind Safe 1
+                        </option>
+
+                        <option value="CBS2">
+                            Color-Blind Safe 2
+                        </option>
+
+                        <option value="CBS3">
+                            Color-Blind Safe 3
+                        </option>
+
+                        <option value="HM">
+                            HeightMap
+                        </option>
+                    </optgroup>
+                </select><br>
+
+
+                <h2>Matrix Operations</h2>
+                <select id="matrix" name="matrix">
+                    <optgroup label="Operations">
+                        <option selected value="Self">
+                            Self
+                        </option>
+
+                        <option value="VATed">
+                            VAT Seriation
+                        </option>
+
+                        <option value="Leaf">Optimal Leaf Order Seriation</option> 
+
+                        <option value="Lap">
+                            Laplacian
+                        </option>
+
+                        <option value="Mod">
+                            Modularity
+                        </option>
+
+                        <option value="Pow2">
+                            Power - 2
+                        </option>
+
+                        <option value="Fil">
+                            Filtering
+                        </option><!-- 
+            <option value="Diss" selected>Dissimilarity</option>
+            <option value="Adj">Adjacency</option>  
+            <option value="AdjUnweighted">Adjacency Unweighted</option>  
+            <option value="AdjPow2">Adj-Multipath (Length 1 or 2)</option>  
+            <option value="AdjWithDiss">Adjacency filtered Dissimilarity</option>  
+            <option value="DissAdj">Dissimilarity + Adjacency</option>
+            <option value="Lap">Laplacian</option>  
+            <option value="NormLap">Normalized Laplacian</option>   -->
+                    </optgroup>
+                </select><br>
+
+
+                <!--
+        <h2> Matrix Seriation </h2>
+        <select name="matrixSeriation" id="matrixSeriation">
+          <optgroup label="Matrix Seriation Type">
+            <option value="None" selected>None</option>  
+            <option value="VATed">VAT</option>    
+            <option value="Louven">Louven - Community</option>
+             <option value="Elypt">Elyptical</option>
+          </optgroup>
+        </select>
+
+        <br/> -->
+                 <!-- <h2> Glyph Type </h2>
+        <select name="glyph" id="glyph">
+          <optgroup label="Glyph Type">
+            <option value="rect" selected>Rect</option>  
+            <option value="circle">Circle</option>      
+          </optgroup>
+        </select> -->
+            </div>
+            <br>
+
+
+            <div id="sliderFilter" style="display:none">
+                <h2 id="sliderFilterMatrixHeading">Matrix Filtering</h2>
+
+
+                <div id="sliderFilterMatrix">
+                </div>
+            </div>
+            <br>
+            <br>
+            <!-- <form>
+        <label>
+          <input id="checkbox-1" type="checkbox" name="checkbox"> LAB Color Space
+        </label>
+      </form> 
+
+      <br/> -->
+        <!-- </div> -->
+    </script>
+
+
+
+    <script id="hidden-template" type="text/x-custom-template">
+<div>
+<br/><br/><br/>
+<a title="Download Focus Matrix as .png file" href="#" id = "sidebar-download" style="align:right"> <img src = "static/images/download.svg" width="15px" height="15px" /></a>
+
+<!-- <a title="Download Cluster Drift JSON" href="#" id = "json_download" style="align:right"> <img src = "images/download.svg" width="15px" height="15px" /></a>
+-->
+    <!-- <label>
+     <input id="complement" type="checkbox" name="checkbox"> Complement Matrix
+     </label> <br /> -->
+    
+     
+    <h2> Color Scheme </h2>
+    <select name="color" id="sidebar-color" style='z-index:1;'> 
+      <optgroup label="Color Scheme"> 
+        <option value="BW">Black-White</option>
+        <option value="OG">Orange-Green</option>
+        <option value="BY">Black-Yellow</option>
+        <option value="PO">Purple-Orange</option>
+        <option value="GR">Green-Red</option>
+        <option value="BR">Blue-Red</option>  
+        <option value="OW">Orange-White</option>
+        <option value="GW">Green-White</option>
+        <option value="RW">Red-White</option>
+        <option value="BlueW">Blue-White</option>
+        <option value="CBS1">Color-Blind Safe 1</option>  
+        <option value="CBS2">Color-Blind Safe 2</option>  
+        <option value="CBS3">Color-Blind Safe 3</option>  
+        <option value="HM">HeightMap</option>  
+      </optgroup>
+    </select>
+
+    <br/>
+
+    <h2> Similarity Matrices </h2>
+    <select name="similarity" id="sidebar-similarity">
+      <optgroup label="Alternate Similarity Matrix">
+        <option value="coauthor" selected>Co-Author (Default)</option>  
+        <option value="cocitation">Co-citation</option>    
+        <option value="authortopic">Author-Topic similarity</option>
+
+      </optgroup>
+    </select>
+    <br />
+
+    <!-- <h2> Intra-community Edegs </h2> -->
+    <!-- <select name="edges" multiple >
+        <option value="layer1">Co-authorship layer edges</option>
+        <option value="layer2" id="layer3edge_focus" >Author-Topic Similarity layer edges</option>
+
+    </select> -->
+
+     <!-- <label>
+         <input type="checkbox" onclick="return false" checked >Co-author Edges </input>
+    </label> -->
+    <br/>
+    <label style='margin-left:10px;margin-right:10px;'>
+        <input id="layer3edge_focus" type="checkbox" name="checkbox">Author-Topic Similarty Edges </input>
+    </label>
+    <!-- <script>
+    $('select[multiple]').multiselect({
+        columns: 1,
+        placeholder: 'Select options'
+    });
+    </script> -->
+
+    
+    <!-- //Shivam -->
+    <!--   <h2> Co-Author Link Prediction </h2>
+    <select name="link" id="link-prediction">
+      <optgroup label="Operations">
+        <option value="prediction" selected>Predict the links</option>  
+        <option value="actual">Total co-authorship (till date)</option>    
+        <option value="future">Only future co-authorship</option>
+
+      </optgroup>
+    </select> -->
+
+    
+
+    <h2> Operations </h2>
+    <select name="matrix" id="sidebar-matrix">
+      <optgroup label="Operations">
+      <option value="Self">Self</option> 
+        <option value="VATed">VAT Seriation</option> 
+
+        <option value="Leaf">Optimal Leaf Order Seriation</option> 
+        <option value="CrossingReduction">by Crossing Reduction Seriation</option> 
+        <option value="BandwidthReduction">by Bandwidth Reduction Seriation</option> 
+        <!-- <option value="CLUSION">CLUSION Coarse Seriation</option>  -->
+        <option value="Lap">Laplacian</option>  
+        <option value="Mod">Modularity</option>
+        <option value="Pow">Power 2</option>    
+        <option value="Fil">Filtering</option>  
+        <!-- <option value="Clu">Clustering</option>   -->
+
+        
+        <!--  
+        <option value="Diss" selected>Dissimilarity</option>
+        <option value="Adj">Adjacency</option>  
+        <option value="AdjUnweighted">Adjacency Unweighted</option>  
+        <option value="AdjPow2">Adj-Multipath (Length 1 or 2)</option>  
+        <option value="AdjWithDiss">Adjacency filtered Dissimilarity</option>  
+        <option value="DissAdj">Dissimilarity + Adjacency</option>
+
+        <option value="NormLap">Normalized Laplacian</option>  -->
+      </optgroup>
+    </select>
+
+    <br/>
+  
+    
+
+    <br/>
+    <!--
+    <h2> Glyph Type </h2>
+    <select name="glyph" id="sidebar-glyph">
+      <optgroup label="Glyph Type">
+        <option value="rect" selected>Rect</option>  
+        <option value="circle">Circle</option>      
+      </optgroup>
+    </select>
+    -->
+
+    </div>
+
+    <br/>
+    <!--
+    <h2 id="sidebar-alphaHeading"> Matrix Combination </h2>
+
+    <h3 id='adjText'>Dissimilarity </h3> 
+    <h3 id='dissText'>Adjacency</h3>
+    <br/>
+
+    <div id="sidebar-sliderCombination"> </div>
+    <br/>
+    -->
+
+    <!-- <div id="sidebar-filter" style="display:none"> -->
+    <div id="sidebar-filter">
+    <h2 id="sliderFilterMatrixHeading"> Matrix Filtering </h2>
+    <div id="sidebar-sliderFilterMatrix"> </div>
+    </div>
+
+    <br/><br/>
+    <!--
+    <form>
+    <label>
+    <input id="sidebar-checkbox-1" type="checkbox" name="checkbox"> LAB Color Space
+    </label>
+    </form>
+    <br />
+    -->
+    <label>
+    <input id="state" type="checkbox" name="checkbox"> Freeze State
+    </label>
+    <br />
+
+   
+
+    <div id="clusterOptions" style="display:none">
+    <p>
+    <select name="typeOfClustering" id="typeOfClustering">
+      <optgroup label="Clustering">
+        <option value="kmeans" selected>k Means</option>  
+        <option value="fcm">Fuzzy C- means</option>      
+        <option value="louvain">Louvain</option>      
+      </optgroup>
+    </select>
+    <br />
+
+    <label for="spinner1">Dimensions:</label>
+    <input id="spinner1" name="value" style="width:20px">
+    </p>
+    <br />
+    <p>
+    <label for="spinner2">Clusters:</label>
+    <input id="spinner2" name="value" style="width:20px">
+    </p>
+
+    <br /><br />
+    <a href="#" class="btn btn-default" id="sidebar-clustering-button"> <span id="arrow">&#8592;</span> Apply clustering </a>
+    </div>
+    <br/> 
+
+     <div id = "historydiv" style="background-color:aliceblue;">
+    <label>Action history</label>
+    <br/> <br/>
+    <span id="history">
+    </span>
+    </div>
+
+    </script> <script id="rect-template" type="text/x-custom-template">
+    <a title="Download Focus Matrix as .png file" href="#" id = "sidebar-download" style="align:right"> <img src = "static/images/download.svg" width="15px" height="15px" /></a>
+
+
+<div>
+    <label>
+    <input id="rect-complement" type="checkbox" name="checkbox"> Complement Matrix
+    </label>
+    <h2> Color Scheme </h2>
+    <select name="color" id="rect-color"> 
+      <optgroup label="Color Scheme"> 
+        <option value="BW">Black-White</option>
+        <option value="OG">Orange-Green</option>
+        <option value="BY">Black-Yellow</option>
+        <option value="PO">Purple-Orange</option>
+        <option value="GR">Green-Red</option>
+        <option value="BR">Blue-Red</option>  
+        <option value="OW">Orange-White</option>
+        <option value="GW">Green-White</option>
+        <option value="RW">Red-White</option>
+        <option value="BlueW">Blue-White</option>
+        <option value="CBS1">Color-Blind Safe 1</option>  
+        <option value="CBS2">Color-Blind Safe 2</option>  
+        <option value="CBS3">Color-Blind Safe 3</option>  
+        <option value="HM">HeightMap</option>  
+      </optgroup>
+    </select>
+    <br/>
+
+    <h2> Operations </h2>
+    <select name="matrix" id="rect-matrix">
+      <optgroup label="Operations">
+      <option value="Self">Revert to Square Matrix</option> 
+      <option value="Graph">Graph</option> 
+
+      </optgroup>
+    </select>
+    <br/>
+
+    </div>
+
+    <br/>
+    <div id="sidebar-filter" style="display:none">
+    <h2 id="sliderFilterMatrixHeading"> Matrix Filtering </h2>
+    <div id="sidebar-sliderFilterMatrix"> </div>
+    </div>
+    <br/>
+
+    <label>
+    <input id="rect-state" type="checkbox" name="checkbox"> Freeze State
+    </label>
+
+    <br/> 
+
+      <div id = "historydiv" style="background-color:aliceblue;">
+    <label>Action history</label>
+    <br/> <br/>
+    <span id="history">
+    </span>
+    </div>
+    
+   
+
+
+    </script> 
+<br/><br/>
+     <footer class="footer" id="footernote" style='text-align: center;'>
+      Developed by Graphics Visualization Computing Lab @ International Institute of Information Technology Bangalore
+      
+    </footer>
+   
+
+<svg >
+  <defs>
+<filter id="dropshadow" height="130%">
+  <feGaussianBlur in="SourceAlpha" stdDeviation="18"/> 
+  <feOffset  dx="0" dy="0" result="offsetblur"/>
+  <feMerge> 
+    <feMergeNode/> 
+    <feMergeNode in="SourceGraphic"/> 
+  </feMerge>
+</filter>
+</defs> 
+</svg>
+
+</body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84166315-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>

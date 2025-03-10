@@ -1,0 +1,225 @@
+
+hr
+{
+  border-top: 1px solid #0A0909;
+}
+
+.background 
+{
+  fill: #eee;
+}
+
+label 
+{ 
+  display: block; 
+  float: left;
+  margin-right: 20px;
+  margin-left:  50px;
+}
+
+#color-button, #matrix-button, #matrixSeriation-button, #glyph-button 
+{
+  float: left;
+  display: inline;
+  margin-left: 8%;
+}
+
+#menue
+{
+  style="text-align: center;
+}
+
+/*select { width: 15%; }*/
+select { width: 85%; }
+.overflow { height: 100px; }
+
+h1, h2, h3
+{
+      font-family: "PT Serif";
+      /*font-family: "sans-serif";*/
+      color: gray; 
+      margin-top: 0;   
+      margin-bottom: 20px;      
+}
+
+h3
+{
+    display: inline-block;
+    font-size: 1em; 
+}
+
+h2
+{
+    text-align: center;
+    margin-top: 20px;   
+    margin-bottom: 5px;      
+    font-size: 1.1em; 
+}
+
+h3#dissText
+{
+    margin-right: 8%;
+    float:right;    
+    margin-bottom: 5px;      
+}
+
+h3#adjText
+{    
+    text-align: left;
+    margin-left: 8%;
+    margin-bottom: 5px;      
+}
+
+#alphaHeading, #sliderFilterMatrix
+{
+    margin-bottom: 0px;
+}
+
+h1, h2, h3, h4, h5, h6 
+{
+    line-height: 2;
+}
+
+h1
+{    
+    text-align: center;      
+    font-size: 1.85em;  
+    margin-bottom: 0px;  
+    margin-top: 0px; 
+}
+
+.authorLabel 
+{
+  font-family: "sans-serif";
+  font-size: 8px;
+  fill: #505050;
+  opacity: 1;  
+}
+
+line 
+{
+  stroke: #fff;
+  stroke-opacity : 0; 
+}
+
+path.bezierCurves 
+{
+    fill: none;
+    stroke: #ccc;
+    /*stroke-width: 1.5px;*/
+    shape-rendering: "crispEdges"
+}
+path.layer3
+{
+  fill: none;
+  stroke: #ccc;
+    /*stroke: #0000ff;*/
+    stroke-dasharray:5;
+    /*stroke-width: 1.5px;*/
+    shape-rendering: "crispEdges"
+}
+
+path.bezierCurvesHighlighted 
+{
+    fill: none;    
+    stroke: green;
+    /*stroke-width: 1px;*/
+}
+
+path.bezierCurvesDeHighlighted 
+{
+  /*  fill: none;    
+    stroke: #ccc;
+    stroke-opacity : .2; */   
+}
+
+
+text.active 
+{
+    /*fill: green;*/
+    font-size: 18px;
+}
+
+text.deactive 
+{
+    opacity: .15;  
+}
+
+.drawnMatrix
+{
+    stroke: gray; 
+}
+
+.ui-slider-horizontal 
+{
+    height: .8em;
+    width :  80%;
+    text-align: center !important;
+}
+
+.ui-widget 
+{
+    font-size: .90em !important; 
+    float: left;
+    margin-left: 1.1em;
+}
+
+.ui-corner-all
+{
+    border-bottom-right-radius: 0px !important;     
+    border-bottom-left-radius: 0px !important; 
+    border-top-right-radius: 0px !important; 
+    border-top-left-radius: 0px !important; 
+}
+
+#slider 
+{
+    margin: 0 auto;
+    margin-top: 5px;
+}
+
+/*Sidebar*/
+
+#sidebar-wrapper
+{
+    background-color: white !important;
+}
+
+/*#settings
+{
+    display: inline-block;
+}*/
+
+#page-content-wrapper
+{
+    background-color: #f7f7f7;
+}
+
+#menu-toggle, #menu-toggle1, #menu-toggle2
+{
+    display: inline;
+    float:left;
+}
+
+#arrow
+{
+    position:relative;
+    top:-2px;
+}
+
+.btn
+{
+    border-radius: 15px !important;
+}
+
+.topParent
+{
+    float:left;
+}
+
+/*Bootstrap buttons*/
+
+.btn
+{
+    display: inherit;
+}

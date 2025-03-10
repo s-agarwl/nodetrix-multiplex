@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <title>NodeTrix-Multiplex</title>
+
+    <!-- CSS -->
+    <link href="static/css/bootstrap.css" rel="stylesheet" />
+    <link href="static/css/BootSideMenu.css" rel="stylesheet" />
+    <link href="static/css/simple-sidebar.css" rel="stylesheet" />
+    <style>
+      #visualization {
+        width: 100%;
+        height: calc(100vh - 60px);
+        position: relative;
+      }
+      .matrix-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+    </style>
+
+    <!-- Third-party Libraries -->
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/jquery.blockUI.js"></script>
+    <script src="static/js/jquery-ui.js"></script>
+    <script src="static/d3/d3.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/BootSideMenu.js"></script>
+    <script src="static/js/math.js"></script>
+    <script src="static/js/jLouvain.js"></script>
+    <script src="static/js/reorder.v1.js"></script>
+    <script src="static/js/matrix.js"></script>
+
+    <!-- Application Core -->
+    <script src="static/js/config.js"></script>
+    <script src="static/js/core/matrix-operations.js"></script>
+    <script src="static/js/core/clustering.js"></script>
+    <script src="static/js/core/predict.js"></script>
+
+    <!-- Visualization -->
+    <script src="static/js/helper.js"></script>
+    <script src="static/js/augmentedNodeTrix.js"></script>
+    <script src="static/js/matrixVisualization1.js"></script>
+    <script src="static/js/pablo.js"></script>
+    <script src="static/js/saveSvgAsPng.js"></script>
+
+    <!-- Main Application -->
+    <script src="static/js/app.js"></script>
+  </head>
+  <body>
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-brand">
+            <a href="#">NodeTrix-Multiplex</a>
+          </li>
+          <li>
+            <h4>Clustering Methods</h4>
+            <button class="btn btn-primary" data-clustering-method="kmeans">
+              K-means
+            </button>
+            <button class="btn btn-primary" data-clustering-method="cmeans">
+              C-means
+            </button>
+            <button class="btn btn-primary" data-clustering-method="louvain">
+              Louvain
+            </button>
+          </li>
+          <li>
+            <h4>Visualization Options</h4>
+            <div class="form-group">
+              <label for="nodeSize">Node Size</label>
+              <input type="range" id="nodeSize" min="1" max="20" value="10" />
+            </div>
+            <div class="form-group">
+              <label for="linkStrength">Link Strength</label>
+              <input
+                type="range"
+                id="linkStrength"
+                min="0"
+                max="2"
+                step="0.1"
+                value="1"
+              />
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <div id="visualization">
+                <div class="matrix-container"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Screen resolution check
+      if (screen.width <= 1024) {
+        alert("Best viewed in 1920 x 1200 resolution.");
+      }
+
+      // Initialize sidebar
+      $(document).ready(function () {
+        $("#sidebar-wrapper").BootSideMenu({
+          side: "left",
+          autoClose: false,
+        });
+
+        // Handle visualization option changes
+        $("#nodeSize").on("input", function () {
+          if (window.app) {
+            window.app.updateVisualizationOption("nodeSize", this.value);
+          }
+        });
+
+        $("#linkStrength").on("input", function () {
+          if (window.app) {
+            window.app.updateVisualizationOption("linkStrength", this.value);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+firefox vs chrome difference in calclating left and top oundary points where paths connect
+force arrangement linearseparate
+left arrow --DONE
+outside browser
+-on drag change paths of only dragged matrix  --DONE
+-progressive rendering  for ivapp   --DONE
+-center after deciding zoom scale factor on load
+
+https://www.sitepoint.com/10-ways-minimize-reflows-improve-performance/
+http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+http://bl.ocks.org/GerHobbelt/3104394
+
+BUGS:
+Matrix filtering how to restore after filtering?
+
+similarity layer edges for selected focus
+
+
+Community_size_constraint_greater_than		- Number of nodes in infovis dataset
+1	- 	982
+2	-	826

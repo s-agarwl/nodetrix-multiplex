@@ -1,0 +1,17 @@
+full infovis network
+
+nodes - 1053,
+total number of edges -  1754,
+edges between different comunities/matrices - 9,
+number of communities/matrices - 269
+
+
+2 largest cc
+ nodes - 194
+ total number of edges - 436
+ edges between different communities/matrices - 23
+ number of communities/matrices - 11
+
+ Similarity score threshold - 0.7
+ number of edges between matrices/communities of author-topic layer - 29
+ 

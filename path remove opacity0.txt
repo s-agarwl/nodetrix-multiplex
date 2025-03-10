@@ -1,0 +1,1 @@
+d3.selectAll(".bezierCurves").each(function(d,i){ var elt = d3.select(this); if(elt.attr("opacity") == "0"){console.log(elt); elt.remove();} })

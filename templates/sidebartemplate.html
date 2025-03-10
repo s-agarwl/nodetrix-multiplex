@@ -1,0 +1,83 @@
+<div>
+<h2> Color Scheme </h2>
+<select name="color" id="color"> 
+<optgroup label="Color Scheme"> 
+  <option value="BW">Black-White</option>
+  <option value="OG">Orange-Green</option>
+  <option value="BY">Black-Yellow</option>
+  <option value="PO">Purple-Orange</option>
+  <option value="GR">Green-Red</option>
+  <option value="BR">Blue-Red</option>  
+  <option value="OW">Orange-White</option>
+  <option value="GW">Green-White</option>
+  <option value="RW">Red-White</option>
+  <option value="BlueW">Blue-White</option>
+  <option value="CBS1">Color-Blind Safe 1</option>  
+  <option value="CBS2">Color-Blind Safe 2</option>  
+  <option value="CBS3">Color-Blind Safe 3</option>  
+  <option value="HM">HeightMap</option>  
+</optgroup>
+</select>
+
+<br/>
+
+<h2> Matrix Type </h2>
+<select name="matrix" id="matrix">
+<optgroup label="Matrix Type">
+  <option value="Diss" selected>Dissimilarity</option>
+  <option value="Adj">Adjacency</option>  
+  <option value="AdjUnweighted">Adjacency Unweighted</option>  
+  <option value="AdjPow2">Adj-Multipath (Length 1 or 2)</option>  
+  <option value="AdjWithDiss">Adjacency filtered Dissimilarity</option>  
+  <option value="DissAdj">Dissimilarity + Adjacency</option>
+  <option value="Lap">Laplacian</option>  
+  <option value="NormLap">Normalized Laplacian</option>  
+</optgroup>
+</select>
+
+<br/>
+
+<h2> Matrix Seriation </h2>
+<select name="matrixSeriation" id="matrixSeriation">
+<optgroup label="Matrix Seriation Type">
+  <option value="None" selected>None</option>  
+  <option value="VATed">VAT</option>    
+  <option value="Louven">Louven - Community</option>
+  <!-- <option value="Elypt">Elyptical</option> -->
+</optgroup>
+</select>
+
+<br/>
+
+<h2> Glyph Type </h2>
+<select name="glyph" id="glyph">
+<optgroup label="Glyph Type">
+  <option value="rect" selected>Rect</option>  
+  <option value="circle">Circle</option>      
+</optgroup>
+</select>
+
+</div>
+
+<br/>
+
+<h2 id="alphaHeading"> Matrix Combination </h2>
+
+<h3 id='adjText'>Adjacency</h3> 
+<h3 id='dissText'>Dissimilarity</h3>
+<br/>
+<div id="sliderCombination"> </div>
+<br/>
+
+<h2 id="sliderFilterMatrixHeading"> Matrix Filtering </h2>
+<div id="sliderFilterMatrix"> </div>
+
+<br/><br/>
+
+<form>
+    <label>
+        <input id="checkbox-1" type="checkbox" name="checkbox"> LAB Color Space
+    </label>
+</form>
+
+<br/> 

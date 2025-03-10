@@ -1,0 +1,21 @@
+# Exclude large data directories
+static/server_services/pythondata_usf/
+static/server_services/pythondata_cora/
+static/server_services/pythondata_adjnoun/
+static/server_services/pythondata_wordnet/
+static/server_services/pythondata_scivis2015/
+
+# Keep only the data directory you're actually using
+# static/server_services/pythondata_infovis2015/
+
+# Exclude large files
+*.p
+*.pyc
+
+# Virtual environments
+venv/
+myenv/
+
+# Git files
+.git/
+.github/ 

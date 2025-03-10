@@ -38,6 +38,30 @@ def convert_numpy_types(obj):
     else:
         return obj
 
+# Helper function to download data files from cloud storage (example only)
+def get_data_file(file_path):
+    """
+    This is an example function that would download a file from cloud storage
+    if it doesn't exist locally. In a real implementation, you would use
+    boto3 for AWS S3, google-cloud-storage for GCS, etc.
+    """
+    local_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), file_path)
+    
+    # Create directory if it doesn't exist
+    os.makedirs(os.path.dirname(local_path), exist_ok=True)
+    
+    # If file doesn't exist locally, download it
+    if not os.path.exists(local_path):
+        # Example using AWS S3 (you would need to install boto3)
+        # import boto3
+        # s3 = boto3.client('s3')
+        # s3.download_file('your-bucket-name', file_path, local_path)
+        
+        # For now, just print a message
+        print(f"Would download {file_path} to {local_path}")
+    
+    return local_path
+
 app = Flask(__name__)
 
 @app.route('/help')
@@ -78,6 +102,7 @@ def clusterings():
 # 				CV = copy.deepcopy(cv)
 # 				NC = nc
 		
+
 
 # 	# print RM
 # 	a = {"message":"success", "matrix": RM, "clusterVector": CV, "numberofClusters": NC}
@@ -605,47 +630,43 @@ def similarity():
 	receivedIds = request.json["ids"]
 	matrixType = request.json["matrixType"]
 	length = len(receivedIds)
-	# print(receivedIds)
+	print(receivedIds)
 
 	X = [None] * length
 	for x in range(0,length):
 		X[x] = [None] * length	
 
-	
-
-
-	# dictGlobalIDAuthorName = pickle.load(open("./pythondata/authors_with_id_and_name.p","rb"))
-	dictGlobalIDAuthorName = pickle.load(open(DATA_DIR+"/dictGlobalIDAuthorName.p","rb"))
-	# print dictGlobalIDAuthorName
-
+	# Load the dictionary using the get_data_file function
+	dict_file_path = get_data_file(os.path.join("static/server_services/pythondata_infovis2015", "dictGlobalIDAuthorName.p"))
+	dictGlobalIDAuthorName = pickle.load(open(dict_file_path, "rb"))
 
 	if matrixType == 'coauthor':
-		dictMatrix = pickle.load(open(DATA_DIR + "/co-authorship_dictionary_matrix.p","rb"))
-		# print dictMatrix
-
+		matrix_file_path = get_data_file(os.path.join("static/server_services/pythondata_infovis2015", "co-authorship_dictionary_matrix.p"))
+		dictMatrix = pickle.load(open(matrix_file_path, "rb"))
+		
 		for i in range(0,len(receivedIds)):
 			for j in range(0,len(receivedIds)):
 				X[i][j] = dictMatrix[dictGlobalIDAuthorName[receivedIds[i]]['dataID']][dictGlobalIDAuthorName[receivedIds[j]]['dataID']]
-		# print(X)
-		# print(matrixType)
+		print(X)
+		print(matrixType)
 	elif matrixType == 'cocitation':
-		dictMatrix = pickle.load(open(DATA_DIR + "/co-citation_authors_dictionary_matrix.p","rb"))
-		# print dictMatrix
-
+		matrix_file_path = get_data_file(os.path.join("static/server_services/pythondata_infovis2015", "co-citation_authors_dictionary_matrix.p"))
+		dictMatrix = pickle.load(open(matrix_file_path, "rb"))
+		
 		for i in range(0,len(receivedIds)):
 			for j in range(0,len(receivedIds)):
 				X[i][j] = dictMatrix[dictGlobalIDAuthorName[receivedIds[i]]['dataID']][dictGlobalIDAuthorName[receivedIds[j]]['dataID']]
-		# print(X)
-		# print(matrixType)
+		print(X)
+		print(matrixType)
 	elif matrixType == 'authortopic':
-		dictMatrix = pickle.load(open(DATA_DIR + "/author_topic_dictionary_matrix.p","rb"))
-		# print dictMatrix
-
+		matrix_file_path = get_data_file(os.path.join("static/server_services/pythondata_infovis2015", "author_topic_dictionary_matrix.p"))
+		dictMatrix = pickle.load(open(matrix_file_path, "rb"))
+		
 		for i in range(0,len(receivedIds)):
 			for j in range(0,len(receivedIds)):
 				X[i][j] = dictMatrix[dictGlobalIDAuthorName[receivedIds[i]]['dataID']][dictGlobalIDAuthorName[receivedIds[j]]['dataID']]
-		# print(X)
-		# print(matrixType)
+		print(X)
+		print(matrixType)
 
 	# print("henry - fekete: ", X[8][12])
 	# print("henry - manivannavn: ", X[8][33])

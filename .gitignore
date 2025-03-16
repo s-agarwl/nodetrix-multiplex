@@ -37,5 +37,6 @@ Thumbs.db
 # Vercel
 .vercel/
 
-# Data files
-static/server_services/pythondata_infovis2015/*.p
+# Logs
+*.log
+.vercel

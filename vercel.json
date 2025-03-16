@@ -23,6 +23,7 @@
   "env": {
     "FLASK_ENV": "production",
     "PYTHONUNBUFFERED": "1",
-    "DEBUG": "true"
+    "DEBUG": "true",
+    "GITHUB_RAW_URL": "https://raw.githubusercontent.com/s-agarwl/nodetrix-multiplex/main"
   }
 }

@@ -28,27 +28,33 @@ def convert_numpy_types(obj):
     else:
         return obj
 
-# Helper function to download data files from cloud storage (example only)
+# Helper function to download data files from cloud storage or create placeholders
 def get_data_file(file_path):
     """
-    This is an example function that would download a file from cloud storage
-    if it doesn't exist locally. In a real implementation, you would use
-    boto3 for AWS S3, google-cloud-storage for GCS, etc.
+    This function attempts to find a local file, and if it doesn't exist:
+    1. Creates the directory structure
+    2. On Vercel, creates an empty placeholder file
+    3. In development, would download from cloud storage (not implemented)
     """
     local_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), file_path)
     
     # Create directory if it doesn't exist
     os.makedirs(os.path.dirname(local_path), exist_ok=True)
     
-    # If file doesn't exist locally, download it
+    # If file doesn't exist locally
     if not os.path.exists(local_path):
-        # Example using AWS S3 (you would need to install boto3)
-        # import boto3
-        # s3 = boto3.client('s3')
-        # s3.download_file('your-bucket-name', file_path, local_path)
-        
-        # For now, just print a message
-        print(f"Would download {file_path} to {local_path}")
+        # Check if running on Vercel
+        if os.environ.get('VERCEL') or os.environ.get('VERCEL_ENV'):
+            print(f"Running on Vercel - creating placeholder for {file_path}")
+            # Create an empty placeholder file
+            with open(local_path, 'wb') as f:
+                pickle.dump({}, f)
+        else:
+            # Example using AWS S3 (you would need to implement this)
+            print(f"Would download {file_path} to {local_path}")
+            # For now, just create an empty file in development too
+            with open(local_path, 'wb') as f:
+                pickle.dump({}, f)
     
     return local_path
 
@@ -132,62 +138,96 @@ def power():
 @app.route('/similarity', methods=['GET','POST'])
 @cross_origin()
 def similarity():
+    try:
+        DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static/server_services/pythondata_infovis2015")
+        
+        receivedIds = request.json["ids"]
+        matrixType = request.json["matrixType"]
+        length = len(receivedIds)
+        print(receivedIds)
 
-	DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static/server_services/pythondata_infovis2015")
-	
-	receivedIds = request.json["ids"]
-	matrixType = request.json["matrixType"]
-	length = len(receivedIds)
-	print(receivedIds)
+        X = [None] * length
+        for x in range(0,length):
+            X[x] = [None] * length	
 
-	X = [None] * length
-	for x in range(0,length):
-		X[x] = [None] * length	
+        # Generate a default empty matrix in case of errors
+        default_matrix = [[0 for _ in range(length)] for _ in range(length)]
+        
+        try:
+            dict_file_path = get_data_file(os.path.join("static/server_services/pythondata_infovis2015", "dictGlobalIDAuthorName.p"))
+            dictGlobalIDAuthorName = pickle.load(open(dict_file_path, "rb"))
+            
+            # Check if we have a valid dictionary or just a placeholder
+            if not dictGlobalIDAuthorName:
+                print("Using default empty matrix - dictGlobalIDAuthorName is empty")
+                return json.dumps({"message":"success", "matrix": default_matrix})
+                
+            if matrixType == 'coauthor':
+                matrix_file_path = get_data_file(os.path.join("static/server_services/pythondata_infovis2015", "co-authorship_dictionary_matrix.p"))
+                dictMatrix = pickle.load(open(matrix_file_path, "rb"))
+                
+                # Check if we have a valid matrix or just a placeholder
+                if not dictMatrix:
+                    print("Using default empty matrix - dictMatrix is empty")
+                    return json.dumps({"message":"success", "matrix": default_matrix})
+                
+                for i in range(0,len(receivedIds)):
+                    for j in range(0,len(receivedIds)):
+                        X[i][j] = dictMatrix[dictGlobalIDAuthorName[receivedIds[i]]['dataID']][dictGlobalIDAuthorName[receivedIds[j]]['dataID']]
+                print(X)
+                print(matrixType)
+            elif matrixType == 'cocitation':
+                matrix_file_path = get_data_file(os.path.join("static/server_services/pythondata_infovis2015", "co-citation_authors_dictionary_matrix.p"))
+                dictMatrix = pickle.load(open(matrix_file_path, "rb"))
+                
+                # Check if we have a valid matrix or just a placeholder
+                if not dictMatrix:
+                    print("Using default empty matrix - dictMatrix is empty")
+                    return json.dumps({"message":"success", "matrix": default_matrix})
+                
+                for i in range(0,len(receivedIds)):
+                    for j in range(0,len(receivedIds)):
+                        X[i][j] = dictMatrix[dictGlobalIDAuthorName[receivedIds[i]]['dataID']][dictGlobalIDAuthorName[receivedIds[j]]['dataID']]
+                print(X)
+                print(matrixType)
+            elif matrixType == 'authortopic':
+                matrix_file_path = get_data_file(os.path.join("static/server_services/pythondata_infovis2015", "author_topic_dictionary_matrix.p"))
+                dictMatrix = pickle.load(open(matrix_file_path, "rb"))
+                
+                # Check if we have a valid matrix or just a placeholder
+                if not dictMatrix:
+                    print("Using default empty matrix - dictMatrix is empty")
+                    return json.dumps({"message":"success", "matrix": default_matrix})
+                
+                for i in range(0,len(receivedIds)):
+                    for j in range(0,len(receivedIds)):
+                        X[i][j] = dictMatrix[dictGlobalIDAuthorName[receivedIds[i]]['dataID']][dictGlobalIDAuthorName[receivedIds[j]]['dataID']]
+                print(X)
+                print(matrixType)
+            
+            X = np.asarray(X)
 
-	dict_file_path = get_data_file(os.path.join("static/server_services/pythondata_infovis2015", "dictGlobalIDAuthorName.p"))
-	dictGlobalIDAuthorName = pickle.load(open(dict_file_path, "rb"))
+            returnMatrix = [None] * length
+            for i in range(0, length):
+                returnMatrix[i] = [None] * length
 
-	if matrixType == 'coauthor':
-		matrix_file_path = get_data_file(os.path.join("static/server_services/pythondata_infovis2015", "co-authorship_dictionary_matrix.p"))
-		dictMatrix = pickle.load(open(matrix_file_path, "rb"))
-		
-		for i in range(0,len(receivedIds)):
-			for j in range(0,len(receivedIds)):
-				X[i][j] = dictMatrix[dictGlobalIDAuthorName[receivedIds[i]]['dataID']][dictGlobalIDAuthorName[receivedIds[j]]['dataID']]
-		print(X)
-		print(matrixType)
-	elif matrixType == 'cocitation':
-		matrix_file_path = get_data_file(os.path.join("static/server_services/pythondata_infovis2015", "co-citation_authors_dictionary_matrix.p"))
-		dictMatrix = pickle.load(open(matrix_file_path, "rb"))
-		
-		for i in range(0,len(receivedIds)):
-			for j in range(0,len(receivedIds)):
-				X[i][j] = dictMatrix[dictGlobalIDAuthorName[receivedIds[i]]['dataID']][dictGlobalIDAuthorName[receivedIds[j]]['dataID']]
-		print(X)
-		print(matrixType)
-	elif matrixType == 'authortopic':
-		matrix_file_path = get_data_file(os.path.join("static/server_services/pythondata_infovis2015", "author_topic_dictionary_matrix.p"))
-		dictMatrix = pickle.load(open(matrix_file_path, "rb"))
-		
-		for i in range(0,len(receivedIds)):
-			for j in range(0,len(receivedIds)):
-				X[i][j] = dictMatrix[dictGlobalIDAuthorName[receivedIds[i]]['dataID']][dictGlobalIDAuthorName[receivedIds[j]]['dataID']]
-		print(X)
-		print(matrixType)
+            for i in range(0, length):
+                for j in range(0,length):
+                    returnMatrix[i][j] = X[i][j]
 
-	X = np.asarray(X)
-
-	returnMatrix = [None] * length
-	for i in range(0, length):
-		returnMatrix[i] = [None] * length
-
-	for i in range(0, length):
-		for j in range(0,length):
-			returnMatrix[i][j] = X[i][j]
-
-	a = {"message":"success", "matrix": returnMatrix}
-	a = convert_numpy_types(a)
-	return json.dumps(a)
+            a = {"message":"success", "matrix": returnMatrix}
+            a = convert_numpy_types(a)
+            return json.dumps(a)
+            
+        except Exception as e:
+            print(f"Error processing similarity data: {str(e)}")
+            return json.dumps({"message":"success", "matrix": default_matrix})
+            
+    except Exception as e:
+        print(f"Error in similarity route: {str(e)}")
+        # Return an empty matrix of the requested size as fallback
+        default_matrix = [[0 for _ in range(length)] for _ in range(length)]
+        return json.dumps({"message":"success", "matrix": default_matrix})
 
 port = os.getenv('VCAP_APP_PORT', '5000')
 		

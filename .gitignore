@@ -11,6 +11,7 @@ dist/
 downloads/
 eggs/
 .eggs/
+lib/
 lib64/
 parts/
 sdist/
@@ -21,17 +22,20 @@ var/
 
 # Virtual Environment
 venv/
-myenv/
+ENV/
 
-# IDE
+# IDE files
 .idea/
 .vscode/
 *.swp
 *.swo
 
+# OS specific files
+.DS_Store
+Thumbs.db
+
 # Vercel
 .vercel/
 
-# Logs
-*.log
-.vercel
+# Data files
+static/server_services/pythondata_infovis2015/*.p
